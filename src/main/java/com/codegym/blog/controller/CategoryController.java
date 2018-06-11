@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,4 +45,28 @@ public class CategoryController {
         modelAndView.addObject("message", "Create category successful");
         return modelAndView;
     }
+
+    @GetMapping("/update-category/{id}")
+    public ModelAndView showFormUpdateCategory(@PathVariable("id") Long id) {
+        Category category = categoryService.findById(id);
+        ModelAndView modelAndView;
+
+        if(category != null) {
+            modelAndView  = new ModelAndView("/category/update");
+            modelAndView.addObject("category", category);
+        } else {
+            modelAndView = new ModelAndView("/404");
+        }
+
+        return modelAndView;
+    }
+
+    @PostMapping
+    public ModelAndView updateCategory(@ModelAttribute("category") Category category) {
+        categoryService.save(category);
+        ModelAndView modelAndView = new ModelAndView("/category/update");
+        modelAndView.addObject("message", "Update category successfull");
+        return modelAndView;
+    }
+
 }
