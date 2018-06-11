@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>List post</title>
 </head>
 <body>
     <h2>List post</h2>
+    <p>
+        <a href="/create-post">Create post</a>
+    </p>
     <table border="1">
         <thead>
             <th>Index</th>
@@ -24,7 +27,7 @@
                     <td th:text="${post.description}"></td>
                     <td th:text="${post.imageUrl}"></td>
                     <td th:text="${post.createdDate}"></td>
-                    <td><a th:href="@{/edit-post/__${post.id}__}">Edit</a></td>
+                    <td><a th:href="@{/update-post/__${post.id}__}">Edit</a></td>
                     <td><a th:href="@{/edit-post/__${post.id}__}">Delete</a></td>
                 </tr>
             </th:block>
