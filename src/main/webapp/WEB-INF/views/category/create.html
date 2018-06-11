@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create category</title>
+</head>
+<body>
+    <p>
+        <a href="/categories">List category</a>
+    </p>
+
+    <th:block th:if="${message}">
+        <p th:text="${message}"></p>
+    </th:block>
+
+    <form th:object="${category}" th:action="@{/create-category}" th:method="post">
+        <p>
+            <label for="">Category name</label>
+            <input  th:field="*{name}">
+        </p>
+        <p>
+            <input type="submit" value="Create category">
+        </p>
+    </form>
+</body>
+</html>
