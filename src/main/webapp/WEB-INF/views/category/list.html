@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>List category</title>
 </head>
 <body>
     <h2>List category</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <td>Index</td>
+            <td>Name</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:each="category : ${categories}">
+            <tr>
+                <td th:text="${category.id}"></td>
+                <td th:text="${category.name}"></td>
+                <td><a th:href="@{/edit-category/__${category.id}__}">Edit</a></td>
+                <td><a th:href="@{/edit-category/__${category.id}__}">Delete</a></td>
+            </tr>
+        </th:block>
+    </tbody>
+</table>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.codegym.blog;
 
 
+import com.codegym.blog.service.CategoryService;
+import com.codegym.blog.service.CategoryServiceImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -45,6 +47,10 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         this.applicationContext = applicationContext;
     }
 
+    @Bean
+    CategoryService categoryService() {
+        return new CategoryServiceImpl();
+    }
 
     //Thymeleaf Configuration
     @Bean

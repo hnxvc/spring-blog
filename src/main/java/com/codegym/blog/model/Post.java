@@ -3,6 +3,8 @@ package com.codegym.blog.model;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
