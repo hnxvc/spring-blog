@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List post</title>
+</head>
+<body>
+    <h2>List post</h2>
+    <table border="1">
+        <thead>
+            <th>Index</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Created date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+        <tbody>
+            <th:block th:each="post : ${posts}">
+                <tr>
+                    <td th:text="${post.id}"></td>
+                    <td th:text="${post.title}"></td>
+                    <td th:text="${post.description}"></td>
+                    <td th:text="${post.imageUrl}"></td>
+                    <td th:text="${post.createdDate}"></td>
+                    <td><a th:href="@{/edit-post/__${post.id}__}">Edit</a></td>
+                    <td><a th:href="@{/edit-post/__${post.id}__}">Delete</a></td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+    <div>
+        <a th:href="@{'/posts'(page=${posts.number - 1})}" th:if="${posts.hasPrevious()}">Previous</a>
+        <span th:text="${posts.number + 1}"></span>/<span th:text="${posts.totalPages}"></span>
+        <a th:href="@{'/posts'(page=${posts.number + 1})}" th:if="${posts.hasNext()}">Next</a>
+    </div>
+</body>
+</html>
