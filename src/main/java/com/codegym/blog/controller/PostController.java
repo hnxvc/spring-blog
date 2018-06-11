@@ -74,4 +74,28 @@ public class PostController {
         return modelAndView;
     }
 
+    @GetMapping("/delete-post/{id}")
+    public ModelAndView showFormDeletePost(@PathVariable("id") Long id) {
+        Post post = postService.findById(id);
+        ModelAndView modelAndView;
+        if(post != null) {
+            modelAndView = new ModelAndView("/post/delete");
+            modelAndView.addObject("post", post);
+        } else {
+            modelAndView = new ModelAndView("/404");
+        }
+        return modelAndView;
+    }
+
+    @PostMapping("/delete-post/{id}")
+    public String deletePost(@PathVariable("id") Long id) {
+        Post post = postService.findById(id);
+        if(post != null) {
+            postService.remove(id);
+            return "redirect:/posts";
+        } else {
+            return "redirect:/404";
+        }
+    }
+
 }
