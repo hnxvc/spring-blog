@@ -61,12 +61,38 @@ public class CategoryController {
         return modelAndView;
     }
 
-    @PostMapping
+    @PostMapping("/update-category")
     public ModelAndView updateCategory(@ModelAttribute("category") Category category) {
         categoryService.save(category);
         ModelAndView modelAndView = new ModelAndView("/category/update");
         modelAndView.addObject("message", "Update category successfull");
         return modelAndView;
+    }
+
+    @GetMapping("/delete-category/{id}")
+    public ModelAndView showFormDeleteCategory(@PathVariable("id") Long id) {
+        Category category = categoryService.findById(id);
+        ModelAndView modelAndView;
+
+        if(category != null) {
+            modelAndView  = new ModelAndView("/category/delete");
+            modelAndView.addObject("category", category);
+        } else {
+            modelAndView = new ModelAndView("/404");
+        }
+
+        return modelAndView;
+    }
+
+    @PostMapping("/delete-category/{id}")
+    public String deleteCategory(@PathVariable("id") Long id) {
+        Category category = categoryService.findById(id);
+        if(category != null) {
+            categoryService.remove(id);
+            return "redirect:/categories";
+        } else {
+            return  "redirect:/404";
+        }
     }
 
 }

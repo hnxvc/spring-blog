@@ -24,7 +24,7 @@
                 <td th:text="${category.id}"></td>
                 <td th:text="${category.name}"></td>
                 <td><a th:href="@{/update-category/__${category.id}__}">Edit</a></td>
-                <td><a th:href="@{/edit-category/__${category.id}__}">Delete</a></td>
+                <td><a th:href="@{/delete-category/__${category.id}__}">Delete</a></td>
             </tr>
         </th:block>
     </tbody>
