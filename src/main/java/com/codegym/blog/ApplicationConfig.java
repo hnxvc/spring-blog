@@ -6,6 +6,7 @@ import com.codegym.blog.service.CategoryService;
 import com.codegym.blog.service.PostService;
 import com.codegym.blog.service.impl.CategoryServiceImpl;
 import com.codegym.blog.service.impl.PostServiceImpl;
+import com.codegym.blog.utils.StorageUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -25,6 +26,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -142,5 +144,15 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSizePerFile(10000000);
         return multipartResolver;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/assets/**")
+                .addResourceLocations("/assets/");
+        registry
+                .addResourceHandler("/images/**")
+                .addResourceLocations("file:" + StorageUtils.IMAGE_LOCATION);
     }
 }

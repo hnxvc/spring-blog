@@ -65,7 +65,7 @@ public class PostController {
         }
 
         Date now = new Date();
-        Post post = new Post(postForm.getTitle(), postForm.getDescription(), postForm.getContent(), StorageUtils.IMAGE_LOCATION  + randomFileName, now, postForm.getCategory());
+        Post post = new Post(postForm.getTitle(), postForm.getDescription(), postForm.getContent(), randomFileName, now, postForm.getCategory());
 
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/post/create");
@@ -76,24 +76,56 @@ public class PostController {
     @GetMapping("/update-post/{id}")
     public ModelAndView showFormUpdatePost(@PathVariable("id") Long id) {
         Post post = postService.findById(id);
+
+        PostForm postForm = new PostForm();
+        postForm.setId(post.getId());
+        postForm.setTitle(post.getTitle());
+        postForm.setDescription(post.getDescription());
+        postForm.setContent(post.getContent());
+        postForm.setImageUrl(post.getImageUrl());
+        postForm.setCategory(post.getCategory());
+
         ModelAndView modelAndView;
         if(post != null) {
             modelAndView = new ModelAndView("/post/update");
-            modelAndView.addObject("post", post);
+            modelAndView.addObject("postForm", postForm);
         } else {
             modelAndView = new ModelAndView("/404");
         }
         return modelAndView;
     }
 
-    @PostMapping("/update-post")
-    public ModelAndView updatePost(@ModelAttribute("post") Post post) {
-        Date now = new Date();
-        post.setCreatedDate(now);
+    @PostMapping("/update-post/{id}")
+    public ModelAndView updatePost(@PathVariable("id") Long id ,@ModelAttribute("postForm") PostForm postForm) {
+
+        Post post = postService.findById(id);
+
+        if(postForm.getImage() != null) {
+
+            StorageUtils.removeImage(post.getImageUrl());
+
+            String originalFileName = postForm.getImage().getOriginalFilename();
+            String randomFileName =  StorageUtils.generateRandomFileName(originalFileName);
+
+            post.setImageUrl(randomFileName);
+            postForm.setImageUrl(randomFileName);
+
+            try {
+                postForm.getImage().transferTo(new File(StorageUtils.IMAGE_LOCATION + randomFileName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        post.setTitle(postForm.getTitle());
+        post.setDescription(postForm.getDescription());
+        post.setContent(postForm.getContent());
+        post.setCategory(postForm.getCategory());
+        post.setCreatedDate(new Date());
 
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/post/update");
-        modelAndView.addObject("post", post);
+        modelAndView.addObject("postForm", postForm);
         modelAndView.addObject("message", "Update post successful");
         return modelAndView;
     }

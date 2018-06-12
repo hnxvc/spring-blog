@@ -11,32 +11,34 @@
     <p th:text="${message}"></p>
 </th:block>
 
-<form th:object="${post}" th:action="@{/update-post}" th:method="post">
+<form th:object="${postForm}" th:action="@{/update-post/__${postForm.id}__}" th:method="post" enctype="multipart/form-data">
     <input th:hidden="true" th:field="*{id}">
     <p>
-        <label for="#">Title</label>
+        <label>Title</label>
         <input th:field="*{title}">
     </p>
     <p>
-        <label for="#">Description</label>
+        <label>Description</label>
         <textarea th:field="*{description}"/>
     </p>
     <p>
-        <label for="#">Image url</label>
-        <input th:field="*{imageUrl}">
+        <label>Content</label>
+        <textarea th:field="*{content}"></textarea>
     </p>
     <p>
-        <label for="">Select category</label>
+        <label>Image url</label>
+        <input type="hidden" th:field="*{imageUrl}"/>
+        <img th:src="@{/images/__${postForm.imageUrl}__}" width="200" alt=""/>
+        <input type="file" th:field="*{image}"/>
+    </p>
+    <p>
+
+        <label>Select category</label>
         <select th:field="*{category}">
-            <th:block th:each="category : ${categories}">
-                <option
-                        th:value="${category.id}"
-                        th:text="${category.name}"
-                        th:selected="${category.id} == ${post.category.id}"
-                        <!--FIXME: th:selected not working-->
-                ></option>
-            </th:block>
+            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                    th:selected="${c.id==postForm.category.id}"></option>
         </select>
+
     </p>
     <p>
         <input type="submit" value="Update post">

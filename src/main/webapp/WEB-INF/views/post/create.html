@@ -21,15 +21,18 @@
         <textarea th:field="*{description}" />
     </p>
     <p>
+        <label>Content</label>
+        <textarea th:field="*{content}"></textarea>
+    </p>
+    <p>
         <label for="#">Image url</label>
         <input type="file" th:field="*{image}">
     </p>
     <p>
         <label for="">Select category</label>
         <select th:field="*{category}">
-            <th:block th:each="category : ${categories}">
-                <option th:value="${category.id}" th:text="${category.name}"></option>
-            </th:block>
+            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                   "></option>
         </select>
     </p>
     <p>

@@ -22,6 +22,16 @@ public class Post {
     public Post() {
     }
 
+    public Post(Long id, String title, String description, String content, String imageUrl, Date createdDate, Category category) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.imageUrl = imageUrl;
+        this.createdDate = createdDate;
+        this.category = category;
+    }
+
     public Post(String title, String description, String content, String imageUrl, Date createdDate, Category category) {
         this.title = title;
         this.description = description;
