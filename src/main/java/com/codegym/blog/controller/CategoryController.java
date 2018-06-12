@@ -3,7 +3,6 @@ package com.codegym.blog.controller;
 import com.codegym.blog.model.Category;
 import com.codegym.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,6 +41,7 @@ public class CategoryController {
     public ModelAndView createCategory(@ModelAttribute("category") Category category) {
         categoryService.save(category);
         ModelAndView modelAndView = new ModelAndView("/category/create");
+        modelAndView.addObject("category", new Category());
         modelAndView.addObject("message", "Create category successful");
         return modelAndView;
     }
