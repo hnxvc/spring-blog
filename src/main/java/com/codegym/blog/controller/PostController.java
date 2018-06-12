@@ -5,6 +5,7 @@ import com.codegym.blog.model.Post;
 import com.codegym.blog.model.PostForm;
 import com.codegym.blog.service.CategoryService;
 import com.codegym.blog.service.PostService;
+import com.codegym.blog.utils.StorageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -56,16 +57,15 @@ public class PostController {
     public ModelAndView createPost(@ModelAttribute("postForm") PostForm postForm) {
 
         String originalFileName = postForm.getImage().getOriginalFilename();
-
-        String PATH_IMAGE = "/Users/hoa/Pictures/temp/";
+        String randomFileName =  StorageUtils.generateRandomFileName(originalFileName);
         try {
-            postForm.getImage().transferTo(new File( PATH_IMAGE + originalFileName ));
+            postForm.getImage().transferTo(new File(StorageUtils.IMAGE_LOCATION + randomFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Date now = new Date();
-        Post post = new Post(postForm.getTitle(), postForm.getDescription(), postForm.getContent(), PATH_IMAGE + originalFileName, now);
+        Post post = new Post(postForm.getTitle(), postForm.getDescription(), postForm.getContent(), StorageUtils.IMAGE_LOCATION  + randomFileName, now, postForm.getCategory());
 
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/post/create");

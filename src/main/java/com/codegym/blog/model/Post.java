@@ -22,12 +22,13 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String description, String content, String imageUrl, Date createdDate) {
+    public Post(String title, String description, String content, String imageUrl, Date createdDate, Category category) {
         this.title = title;
         this.description = description;
         this.content = content;
         this.imageUrl = imageUrl;
         this.createdDate = createdDate;
+        this.category = category;
     }
 
     public Long getId() {
