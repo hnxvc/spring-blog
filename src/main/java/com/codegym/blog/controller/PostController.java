@@ -2,18 +2,20 @@ package com.codegym.blog.controller;
 
 import com.codegym.blog.model.Category;
 import com.codegym.blog.model.Post;
+import com.codegym.blog.model.PostForm;
 import com.codegym.blog.service.CategoryService;
 import com.codegym.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 @Controller
@@ -46,14 +48,25 @@ public class PostController {
     @GetMapping("/create-post")
     public ModelAndView showFormCreatePost() {
         ModelAndView modelAndView = new ModelAndView("/post/create");
-        modelAndView.addObject("post", new Post());
+        modelAndView.addObject("postForm", new PostForm());
         return modelAndView;
     }
 
     @PostMapping("/create-post")
-    public ModelAndView createPost(@ModelAttribute("post") Post post) {
+    public ModelAndView createPost(@ModelAttribute("postForm") PostForm postForm) {
+
+        String originalFileName = postForm.getImage().getOriginalFilename();
+
+        String PATH_IMAGE = "/Users/hoa/Pictures/temp/";
+        try {
+            postForm.getImage().transferTo(new File( PATH_IMAGE + originalFileName ));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Date now = new Date();
-        post.setCreatedDate(now);
+        Post post = new Post(postForm.getTitle(), postForm.getDescription(), postForm.getContent(), PATH_IMAGE + originalFileName, now);
+
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/post/create");
         modelAndView.addObject("message", "Create post successful");

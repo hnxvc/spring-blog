@@ -11,7 +11,7 @@
     <p th:text="${message}"></p>
 </th:block>
 
-<form th:object="${post}" th:action="@{/create-post}" th:method="post">
+<form th:object="${postForm}" th:action="@{/create-post}" th:method="post" enctype="multipart/form-data">
     <p>
         <label for="#">Title</label>
         <input th:field="*{title}">
@@ -22,7 +22,7 @@
     </p>
     <p>
         <label for="#">Image url</label>
-        <input th:field="*{imageUrl}">
+        <input type="file" th:field="*{image}">
     </p>
     <p>
         <label for="">Select category</label>
