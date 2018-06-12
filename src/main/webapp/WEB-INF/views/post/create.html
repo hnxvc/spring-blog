@@ -25,6 +25,14 @@
         <input th:field="*{imageUrl}">
     </p>
     <p>
+        <label for="">Select category</label>
+        <select th:field="*{category}">
+            <th:block th:each="category : ${categories}">
+                <option th:value="${category.id}" th:text="${category.name}"></option>
+            </th:block>
+        </select>
+    </p>
+    <p>
         <input type="submit" value="Create post">
     </p>
 </form>

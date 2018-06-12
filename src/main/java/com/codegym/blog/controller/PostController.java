@@ -80,6 +80,7 @@ public class PostController {
 
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/post/update");
+        modelAndView.addObject("post", post);
         modelAndView.addObject("message", "Update post successful");
         return modelAndView;
     }

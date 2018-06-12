@@ -19,11 +19,24 @@
     </p>
     <p>
         <label for="#">Description</label>
-        <textarea th:field="*{description}" />
+        <textarea th:field="*{description}"/>
     </p>
     <p>
         <label for="#">Image url</label>
         <input th:field="*{imageUrl}">
+    </p>
+    <p>
+        <label for="">Select category</label>
+        <select th:field="*{category}">
+            <th:block th:each="category : ${categories}">
+                <option
+                        th:value="${category.id}"
+                        th:text="${category.name}"
+                        th:selected="${category.id} == ${post.category.id}"
+                        <!--FIXME: th:selected not working-->
+                ></option>
+            </th:block>
+        </select>
     </p>
     <p>
         <input type="submit" value="Update post">

@@ -77,4 +77,12 @@ public class Post {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

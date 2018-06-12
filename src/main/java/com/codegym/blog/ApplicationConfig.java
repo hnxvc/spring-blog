@@ -1,6 +1,7 @@
 package com.codegym.blog;
 
 
+import com.codegym.blog.formatter.CategoryFormatter;
 import com.codegym.blog.service.CategoryService;
 import com.codegym.blog.service.PostService;
 import com.codegym.blog.service.impl.CategoryServiceImpl;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -57,6 +59,13 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     @Bean
     PostService postService() {
         return new PostServiceImpl();
+    }
+
+
+    // Formatter
+    @Override
+    public void addFormatters(FormatterRegistry formatterRegistry) {
+        formatterRegistry.addFormatter(new CategoryFormatter(applicationContext.getBean(CategoryService.class)));
     }
 
     //Thymeleaf Configuration
