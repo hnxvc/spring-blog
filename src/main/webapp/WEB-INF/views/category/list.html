@@ -29,10 +29,5 @@
         </th:block>
     </tbody>
 </table>
-<div>
-    <a th:href="@{'/categories'(page=${categories.number - 1})}" th:if="${categories.hasPrevious()}">Previous</a>
-    <span th:text="${categories.number + 1}"></span>/<span th:text="${categories.totalPages}"></span>
-    <a th:href="@{'/categories'(page=${categories.number + 1})}" th:if="${categories.hasNext()}">Next</a>
-</div>
 </body>
 </html>

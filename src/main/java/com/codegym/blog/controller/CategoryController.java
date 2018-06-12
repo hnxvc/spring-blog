@@ -18,10 +18,10 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping("/categories")
-    public ModelAndView showAllCategory(Pageable pageable) {
+    public ModelAndView showAllCategory() {
         ModelAndView modelAndView;
 
-        Iterable<Category> categories = categoryService.findAll(pageable);
+        Iterable<Category> categories = categoryService.findAll();
         if (categories != null) {
             modelAndView = new ModelAndView("/category/list");
             modelAndView.addObject("categories", categories);

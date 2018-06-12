@@ -1,6 +1,8 @@
 package com.codegym.blog.controller;
 
+import com.codegym.blog.model.Category;
 import com.codegym.blog.model.Post;
+import com.codegym.blog.service.CategoryService;
 import com.codegym.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,14 @@ import java.util.Date;
 public class PostController {
     @Autowired
     PostService postService;
+
+    @Autowired
+    CategoryService categoryService;
+
+    @ModelAttribute("categories")
+    public Iterable<Category> categories() {
+        return categoryService.findAll();
+    }
 
     @GetMapping("/posts")
     public ModelAndView showAllPost(Pageable pageable) {
