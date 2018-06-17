@@ -14,6 +14,7 @@
         <tr>
             <td>Index</td>
             <td>Name</td>
+            <td>View</td>
             <td>Edit</td>
             <td>Delete</td>
         </tr>
@@ -23,6 +24,7 @@
             <tr>
                 <td th:text="${category.id}"></td>
                 <td th:text="${category.name}"></td>
+                <td><a th:href="@{/categories/__${category.id}__}">View</a></td>
                 <td><a th:href="@{/update-category/__${category.id}__}">Edit</a></td>
                 <td><a th:href="@{/delete-category/__${category.id}__}">Delete</a></td>
             </tr>

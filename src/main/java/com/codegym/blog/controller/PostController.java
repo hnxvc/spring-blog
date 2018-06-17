@@ -70,6 +70,7 @@ public class PostController {
         postService.save(post);
         ModelAndView modelAndView = new ModelAndView("/post/create");
         modelAndView.addObject("message", "Create post successful");
+        modelAndView.addObject("postForm", new PostForm());
         return modelAndView;
     }
 

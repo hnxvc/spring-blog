@@ -1,14 +1,17 @@
 package com.codegym.blog.controller;
 
 import com.codegym.blog.model.Category;
+import com.codegym.blog.model.Post;
 import com.codegym.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 public class CategoryController {
@@ -24,6 +27,22 @@ public class CategoryController {
         if (categories != null) {
             modelAndView = new ModelAndView("/category/list");
             modelAndView.addObject("categories", categories);
+        } else {
+            modelAndView = new ModelAndView("/404");
+        }
+        return modelAndView;
+    }
+
+    @GetMapping("/categories/{id}")
+    public ModelAndView showCategory(@PathVariable("id") Long id, Pageable pageable) {
+        Category category = categoryService.findById(id);
+        ModelAndView modelAndView;
+        if(category != null) {
+            Iterable<Post> posts = categoryService.findPosts(category, pageable);
+
+            modelAndView = new ModelAndView("/category/view");
+            modelAndView.addObject("category", category);
+            modelAndView.addObject("posts", posts);
         } else {
             modelAndView = new ModelAndView("/404");
         }
