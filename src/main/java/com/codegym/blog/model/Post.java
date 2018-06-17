@@ -11,6 +11,7 @@ public class Post {
     private Long id;
     private String title;
     private String description;
+    @Lob
     private String content;
     private String imageUrl;
     private Date createdDate;
