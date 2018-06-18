@@ -1,27 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout.html}">
 <head>
     <meta charset="UTF-8">
     <title>Update category</title>
 </head>
 <body>
-<p>
-    <a href="/admin/categories">List category</a>
-</p>
 
-<th:block th:if="${message}">
-    <p th:text="${message}"></p>
-</th:block>
+<section layout:fragment="content">
 
-<form th:object="${category}" th:action="@{/admin/categories/__${category.id}__/update}" th:method="post">
-    <input th:hidden="true" th:field="*{id}">
-    <p>
-        <label for="#">Category name</label>
-        <input  th:field="*{name}">
-    </p>
-    <p>
-        <input type="submit" value="Update category">
-    </p>
-</form>
+    <div class="main-content-header row">
+        <div class="col-md-6">
+            <h4 class="main-title">Update category</h4>
+        </div>
+    </div>
+
+    <th:block th:if="${message}">
+        <div th:text="${message}" class="alert alert-success" role="alert">
+        </div>
+    </th:block>
+
+    <form th:object="${category}" th:action="@{/admin/categories/__${category.id}__/update}" th:method="post">
+        <input th:hidden="true" th:field="*{id}">
+        <div class="form-group row">
+            <label for="name" class="col-md-2">Category name</label>
+            <div class="col-md-10">
+                <input th:field="*{name}" id="name" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <input type="submit" class="btn btn-primary" value="Update">
+            </div>
+        </div>
+    </form>
+</section>
+
 </body>
 </html>
