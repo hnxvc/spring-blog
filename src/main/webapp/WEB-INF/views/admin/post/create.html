@@ -6,12 +6,12 @@
 </head>
 <body>
 
-<a href="/posts">List post</a>
+<a href="/admin/posts">List post</a>
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
 
-<form th:object="${postForm}" th:action="@{/create-post}" th:method="post" enctype="multipart/form-data">
+<form th:object="${postForm}" th:action="@{/admin/posts/create}" th:method="post" enctype="multipart/form-data">
     <p>
         <label for="#">Title</label>
         <input th:field="*{title}">

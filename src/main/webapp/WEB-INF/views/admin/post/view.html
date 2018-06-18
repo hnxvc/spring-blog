@@ -5,6 +5,9 @@
     <title th:text="${post.title}"></title>
 </head>
 <body>
+<p>
+    <a href="/admin/posts">List post</a>
+</p>
     <h2 th:text="${post.title}"></h2>
     <span th:text="${post.createdDate}"></span>
     <img th:src="${'/images/' + post.imageUrl}" style="max-width: 100%">

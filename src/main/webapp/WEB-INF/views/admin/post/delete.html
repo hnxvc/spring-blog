@@ -6,10 +6,10 @@
 </head>
 <body>
 <p>
-    <a href="/posts">List post</a>
+    <a href="/admin/posts">List post</a>
 </p>
 <h2>Are your sure?</h2>
-<form th:object="${post}" th:action="@{/delete-post/__${post.id}__}" th:method="post">
+<form th:object="${post}" th:action="@{/admin/posts/__${post.id}__/delete}" th:method="post">
     <input th:hidden="true" th:field="*{id}">
     <p>
         <label for="#">Title</label>

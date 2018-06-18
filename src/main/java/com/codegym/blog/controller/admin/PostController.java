@@ -9,10 +9,7 @@ import com.codegym.blog.utils.StorageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
@@ -20,6 +17,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @Controller
+@RequestMapping("/admin/posts")
 public class PostController {
     @Autowired
     PostService postService;
@@ -32,7 +30,7 @@ public class PostController {
         return categoryService.findAll();
     }
 
-    @GetMapping("/posts")
+    @GetMapping("")
     public ModelAndView showAllPost(Pageable pageable) {
         Iterable<Post> posts = postService.findAll(pageable);
         ModelAndView modelAndview;
@@ -46,7 +44,7 @@ public class PostController {
         return modelAndview;
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/{id}")
     public ModelAndView findPostById(@PathVariable("id") Long id) {
         Post post = postService.findById(id);
         ModelAndView modelAndView;
@@ -59,14 +57,14 @@ public class PostController {
         return modelAndView;
     }
 
-    @GetMapping("/create-post")
+    @GetMapping("/create")
     public ModelAndView showFormCreatePost() {
         ModelAndView modelAndView = new ModelAndView("/admin/post/create");
         modelAndView.addObject("postForm", new PostForm());
         return modelAndView;
     }
 
-    @PostMapping("/create-post")
+    @PostMapping("/create")
     public ModelAndView createPost(@ModelAttribute("postForm") PostForm postForm) {
 
         String originalFileName = postForm.getImage().getOriginalFilename();
@@ -87,7 +85,7 @@ public class PostController {
         return modelAndView;
     }
 
-    @GetMapping("/update-post/{id}")
+    @GetMapping("/{id}/update")
     public ModelAndView showFormUpdatePost(@PathVariable("id") Long id) {
         Post post = postService.findById(id);
 
@@ -109,7 +107,7 @@ public class PostController {
         return modelAndView;
     }
 
-    @PostMapping("/update-post/{id}")
+    @PostMapping("/{id}/update")
     public ModelAndView updatePost(@PathVariable("id") Long id ,@ModelAttribute("postForm") PostForm postForm) {
 
         Post post = postService.findById(id);
@@ -144,7 +142,7 @@ public class PostController {
         return modelAndView;
     }
 
-    @GetMapping("/delete-post/{id}")
+    @GetMapping("/{id}/delete")
     public ModelAndView showFormDeletePost(@PathVariable("id") Long id) {
         Post post = postService.findById(id);
         ModelAndView modelAndView;
@@ -157,12 +155,12 @@ public class PostController {
         return modelAndView;
     }
 
-    @PostMapping("/delete-post/{id}")
+    @PostMapping("/{id}/delete")
     public String deletePost(@PathVariable("id") Long id) {
         Post post = postService.findById(id);
         if(post != null) {
             postService.remove(id);
-            return "redirect:/posts";
+            return "redirect:/admin/posts";
         } else {
             return "redirect:/404";
         }

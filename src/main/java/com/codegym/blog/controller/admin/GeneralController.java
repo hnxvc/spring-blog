@@ -6,9 +6,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class GeneralController {
-    @GetMapping("/admin/")
+    @GetMapping("/admin")
     public String homePage() {
-        return "redirect:/posts";
+        return "redirect:/admin/posts";
     }
 
     @GetMapping("/404")
