@@ -3,7 +3,6 @@ package com.codegym.blog.controller.api;
 import com.codegym.blog.model.Category;
 import com.codegym.blog.model.Post;
 import com.codegym.blog.service.CategoryService;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,6 @@ public class CategoryAPIController {
     @GetMapping("")
     public ResponseEntity<Iterable<Category>> findAll() {
         Iterable<Category> categories = categoryService.findAll();
-        System.out.println("Find all categories" + categories);
         return new ResponseEntity<>(categories,HttpStatus.OK);
     }
 
