@@ -36,7 +36,7 @@
                 <td th:text="${category.name}"></td>
                 <td><a th:href="@{/admin/categories/__${category.id}__}">View</a></td>
                 <td><a th:href="@{/admin/categories/__${category.id}__/update}">Edit</a></td>
-                <td><a th:href="@{/admin/categories/__${category.id}__/delete}">Delete</a></td>
+                <td><a th:href="@{/admin/categories/__${category.id}__/delete}" class="text-danger">Delete</a></td>
             </tr>
         </th:block>
         </tbody>

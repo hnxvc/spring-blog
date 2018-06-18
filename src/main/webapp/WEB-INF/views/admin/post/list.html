@@ -37,10 +37,10 @@
             </th:block>
         </tbody>
     </table>
-    <div>
-        <a th:href="@{'/posts'(page=${posts.number - 1})}" th:if="${posts.hasPrevious()}">Previous</a>
+    <div class="wrap-pagination">
+        <a th:href="@{/admin/posts(page=${posts.number - 1})}" th:if="${posts.hasPrevious()}">Previous</a>
         <span th:text="${posts.number + 1}"></span>/<span th:text="${posts.totalPages}"></span>
-        <a th:href="@{'/posts'(page=${posts.number + 1})}" th:if="${posts.hasNext()}">Next</a>
+        <a th:href="@{/admin/posts(page=${posts.number + 1})}" th:if="${posts.hasNext()}">Next</a>
     </div>
 </body>
 </html>

@@ -1,30 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout.html}">
 <head>
     <meta charset="UTF-8">
-    <title>View category</title>
+    <title th:text="${category.name}"></title>
 </head>
 <body>
-    <h2>Cateogry <span th:text="${category.name}"></span></h2>
-    <p>
-        <a href="/admin/categories">List category</a>
-    </p>
-<table border="1">
-    <thead>
+
+<section layout:fragment="content">
+
+    <div class="main-content-header row">
+        <div class="col-md-6">
+            <h4 class="main-title">Cateogry: <span th:text="${category.name}"></span></h4>
+        </div>
+    </div>
+
+    <h5>List post in category</h5>
+    <table class="table">
+        <thead>
         <tr>
             <th>Title</th>
             <th>Description</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         <th:block th:each="post : ${posts}">
             <tr>
                 <td th:text="${post.title}"></td>
                 <td th:text="${post.description}"></td>
             </tr>
         </th:block>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
+    <div class="wrap-pagination">
+        <a th:href="@{/admin/categories/__${category.id}__(page=${posts.number - 1})}" th:if="${posts.hasPrevious()}">Previous</a>
+        <span th:text="${posts.number + 1}"></span>/<span th:text="${posts.totalPages}"></span>
+        <a th:href="@{/admin/categories/__${category.id}__(page=${posts.number + 1})}" th:if="${posts.hasNext()}">Next</a>
+    </div>
+
+</section>
 </body>
 </html>
