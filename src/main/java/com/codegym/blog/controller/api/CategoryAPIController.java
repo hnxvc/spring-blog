@@ -5,10 +5,7 @@ import com.codegym.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(value = "*")
@@ -23,6 +20,16 @@ public class CategoryAPIController {
         Iterable<Category> categories = categoryService.findAll();
         System.out.println("Find all categories" + categories);
         return new ResponseEntity<>(categories,HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Category> findById(@PathVariable("id") Long id) {
+        Category category = categoryService.findById(id);
+        if(category != null) {
+            return new ResponseEntity<Category>(category, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
