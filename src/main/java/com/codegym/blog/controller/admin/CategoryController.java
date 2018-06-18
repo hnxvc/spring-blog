@@ -6,20 +6,18 @@ import com.codegym.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
+@RequestMapping("/admin/categories")
 public class CategoryController {
 
     @Autowired
     CategoryService categoryService;
 
-    @GetMapping("/categories")
+    @GetMapping("")
     public ModelAndView showAllCategory() {
         ModelAndView modelAndView;
 
@@ -33,7 +31,7 @@ public class CategoryController {
         return modelAndView;
     }
 
-    @GetMapping("/categories/{id}")
+    @GetMapping("/{id}")
     public ModelAndView showCategory(@PathVariable("id") Long id, Pageable pageable) {
         Category category = categoryService.findById(id);
         ModelAndView modelAndView;
@@ -49,14 +47,14 @@ public class CategoryController {
         return modelAndView;
     }
 
-    @GetMapping("/create-category")
+    @GetMapping("/create")
     public ModelAndView showFormCreateCategory() {
         ModelAndView modelAndView = new ModelAndView("/admin/category/create");
         modelAndView.addObject("category", new Category());
         return modelAndView;
     }
 
-    @PostMapping("/create-category")
+    @PostMapping("/create")
     public ModelAndView createCategory(@ModelAttribute("category") Category category) {
         categoryService.save(category);
         ModelAndView modelAndView = new ModelAndView("/admin/category/create");
@@ -65,22 +63,20 @@ public class CategoryController {
         return modelAndView;
     }
 
-    @GetMapping("/update-category/{id}")
+    @GetMapping("/{id}/update")
     public ModelAndView showFormUpdateCategory(@PathVariable("id") Long id) {
         Category category = categoryService.findById(id);
         ModelAndView modelAndView;
-
         if(category != null) {
             modelAndView  = new ModelAndView("/admin/category/update");
             modelAndView.addObject("category", category);
         } else {
             modelAndView = new ModelAndView("/404");
         }
-
         return modelAndView;
     }
 
-    @PostMapping("/update-category")
+    @PostMapping("/{id}/update")
     public ModelAndView updateCategory(@ModelAttribute("category") Category category) {
         categoryService.save(category);
         ModelAndView modelAndView = new ModelAndView("/admin/category/update");
@@ -88,7 +84,7 @@ public class CategoryController {
         return modelAndView;
     }
 
-    @GetMapping("/delete-category/{id}")
+    @GetMapping("/{id}/delete")
     public ModelAndView showFormDeleteCategory(@PathVariable("id") Long id) {
         Category category = categoryService.findById(id);
         ModelAndView modelAndView;
@@ -99,11 +95,10 @@ public class CategoryController {
         } else {
             modelAndView = new ModelAndView("/404");
         }
-
         return modelAndView;
     }
 
-    @PostMapping("/delete-category/{id}")
+    @PostMapping("/{id}/delete")
     public String deleteCategory(@PathVariable("id") Long id) {
         Category category = categoryService.findById(id);
         if(category != null) {

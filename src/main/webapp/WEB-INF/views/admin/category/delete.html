@@ -6,12 +6,12 @@
 </head>
 <body>
 <p>
-    <a href="/categories">List category</a>
+    <a href="/admin/categories">List category</a>
 </p>
 
 <h2>Are you sure delete category?</h2>
 
-<form th:object="${category}" th:action="@{/delete-category/__${category.id}__}" th:method="post">
+<form th:object="${category}" th:action="@{/admin/categories/__${category.id}__/delete}" th:method="post">
     <p>
         <label for="#">Category name</label>
         <input  th:field="*{name}" readonly>

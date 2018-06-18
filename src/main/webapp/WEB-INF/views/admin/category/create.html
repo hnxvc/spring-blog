@@ -6,14 +6,14 @@
 </head>
 <body>
     <p>
-        <a href="/categories">List category</a>
+        <a href="/admin/categories">List category</a>
     </p>
 
     <th:block th:if="${message}">
         <p th:text="${message}"></p>
     </th:block>
 
-    <form th:object="${category}" th:action="@{/create-category}" th:method="post">
+    <form th:object="${category}" th:action="@{/admin/categories/create}" th:method="post">
         <p>
             <label for="">Category name</label>
             <input  th:field="*{name}">

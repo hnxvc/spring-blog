@@ -7,7 +7,7 @@
 <body>
     <h2>List category</h2>
     <p>
-        <a href="/create-category">Create category</a>
+        <a href="/admin/categories/create">Create category</a>
     </p>
 <table border="1">
     <thead>
@@ -24,9 +24,9 @@
             <tr>
                 <td th:text="${category.id}"></td>
                 <td th:text="${category.name}"></td>
-                <td><a th:href="@{/categories/__${category.id}__}">View</a></td>
-                <td><a th:href="@{/update-category/__${category.id}__}">Edit</a></td>
-                <td><a th:href="@{/delete-category/__${category.id}__}">Delete</a></td>
+                <td><a th:href="@{/admin/categories/__${category.id}__}">View</a></td>
+                <td><a th:href="@{/admin/categories/__${category.id}__/update}">Edit</a></td>
+                <td><a th:href="@{/admin/categories/__${category.id}__/delete}">Delete</a></td>
             </tr>
         </th:block>
     </tbody>
