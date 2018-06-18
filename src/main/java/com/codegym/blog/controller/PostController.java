@@ -46,6 +46,19 @@ public class PostController {
         return modelAndview;
     }
 
+    @GetMapping("/posts/{id}")
+    public ModelAndView findPostById(@PathVariable("id") Long id) {
+        Post post = postService.findById(id);
+        ModelAndView modelAndView;
+        if(post != null) {
+            modelAndView = new ModelAndView("/post/view");
+            modelAndView.addObject("post", post);
+        } else {
+            modelAndView = new ModelAndView("/404");
+        }
+        return modelAndView;
+    }
+
     @GetMapping("/create-post")
     public ModelAndView showFormCreatePost() {
         ModelAndView modelAndView = new ModelAndView("/post/create");
