@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout.html}">
 <head>
     <meta charset="UTF-8">
     <title>List category</title>
 </head>
 <body>
-    <h2>List category</h2>
-    <p>
-        <a href="/admin/categories/create">Create category</a>
-    </p>
-<table border="1">
-    <thead>
+
+<section layout:fragment="content">
+
+    <div class="main-content-header row">
+        <div class="col-md-6">
+            <h4 class="main-title">List category</h4>
+        </div>
+        <div class="col-md-6 text-right">
+            <a href="/admin/categories/create" class="btn btn-primary">Create category</a>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
         <tr>
-            <td>Index</td>
-            <td>Name</td>
-            <td>View</td>
-            <td>Edit</td>
-            <td>Delete</td>
+            <th>Index</th>
+            <th>Name</th>
+            <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         <th:block th:each="category : ${categories}">
             <tr>
                 <td th:text="${category.id}"></td>
@@ -29,7 +39,9 @@
                 <td><a th:href="@{/admin/categories/__${category.id}__/delete}">Delete</a></td>
             </tr>
         </th:block>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</section>
+
 </body>
 </html>
