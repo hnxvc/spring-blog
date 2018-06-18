@@ -12,3 +12,7 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+
+.thumbnail-sm {
+  max-width: 100px;
+}

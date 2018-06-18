@@ -1,40 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout.html}">
 <head>
     <meta charset="UTF-8">
     <title>List post</title>
 </head>
 <body>
-    <h2>List post</h2>
-    <p>
-        <a href="/admin/posts/create">Create post</a>
-    </p>
-    <table border="1">
+
+<section layout:fragment="content">
+
+    <div class="main-content-header row">
+        <div class="col-md-6">
+            <h4 class="main-title">List post</h4>
+        </div>
+        <div class="col-md-6 text-right">
+            <a href="/admin/posts/create" class="btn btn-primary">Create post</a>
+        </div>
+    </div>
+    <table class="table">
         <thead>
-            <th>Index</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Created date</th>
-            <th>Category</th>
-            <th>View</th>
-            <th>Edit</th>
-            <th>Delete</th>
+        <th>Index</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Created date</th>
+        <th>Category</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
         </thead>
         <tbody>
-            <th:block th:each="post : ${posts}">
-                <tr>
-                    <td th:text="${post.id}"></td>
-                    <td th:text="${post.title}"></td>
-                    <td th:text="${post.description}"></td>
-                    <td th:text="${post.imageUrl}"></td>
-                    <td th:text="${post.createdDate}"></td>
-                    <td th:text="${post.category.name}"></td>
-                    <td><a th:href="@{/admin/posts/__${post.id}__}">View</a></td>
-                    <td><a th:href="@{/admin/posts/__${post.id}__/update}">Edit</a></td>
-                    <td><a th:href="@{/admin/posts/__${post.id}__/delete}">Delete</a></td>
-                </tr>
-            </th:block>
+        <th:block th:each="post : ${posts}">
+            <tr>
+                <td th:text="${post.id}"></td>
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.description}"></td>
+                <td>
+                    <img th:src="@{/images/__${post.imageUrl}__}" class="thumbnail-sm">
+                </td>
+                <td th:text="${post.createdDate}"></td>
+                <td th:text="${post.category.name}"></td>
+                <td><a th:href="@{/admin/posts/__${post.id}__}">View</a></td>
+                <td><a th:href="@{/admin/posts/__${post.id}__/update}">Edit</a></td>
+                <td><a th:href="@{/admin/posts/__${post.id}__/delete}" class="text-danger">Delete</a></td>
+            </tr>
+        </th:block>
         </tbody>
     </table>
     <div class="wrap-pagination">
@@ -42,5 +53,7 @@
         <span th:text="${posts.number + 1}"></span>/<span th:text="${posts.totalPages}"></span>
         <a th:href="@{/admin/posts(page=${posts.number + 1})}" th:if="${posts.hasNext()}">Next</a>
     </div>
+</section>
+
 </body>
 </html>
