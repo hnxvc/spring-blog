@@ -7,6 +7,7 @@ import com.codegym.blog.service.PostService;
 import com.codegym.blog.service.impl.CategoryServiceImpl;
 import com.codegym.blog.service.impl.PostServiceImpl;
 import com.codegym.blog.utils.StorageUtils;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -84,8 +85,9 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
 
     @Bean
     public TemplateEngine templateEngine(){
-        TemplateEngine templateEngine = new SpringTemplateEngine()  ;
+        TemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.addDialect(new LayoutDialect());
         return templateEngine;
     }
 
