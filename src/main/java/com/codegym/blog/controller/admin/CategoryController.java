@@ -1,4 +1,4 @@
-package com.codegym.blog.controller;
+package com.codegym.blog.controller.admin;
 
 import com.codegym.blog.model.Category;
 import com.codegym.blog.model.Post;
@@ -25,7 +25,7 @@ public class CategoryController {
 
         Iterable<Category> categories = categoryService.findAll();
         if (categories != null) {
-            modelAndView = new ModelAndView("/category/list");
+            modelAndView = new ModelAndView("/admin/category/list");
             modelAndView.addObject("categories", categories);
         } else {
             modelAndView = new ModelAndView("/404");
@@ -40,7 +40,7 @@ public class CategoryController {
         if(category != null) {
             Iterable<Post> posts = categoryService.findPosts(category, pageable);
 
-            modelAndView = new ModelAndView("/category/view");
+            modelAndView = new ModelAndView("/admin/category/view");
             modelAndView.addObject("category", category);
             modelAndView.addObject("posts", posts);
         } else {
@@ -51,7 +51,7 @@ public class CategoryController {
 
     @GetMapping("/create-category")
     public ModelAndView showFormCreateCategory() {
-        ModelAndView modelAndView = new ModelAndView("/category/create");
+        ModelAndView modelAndView = new ModelAndView("/admin/category/create");
         modelAndView.addObject("category", new Category());
         return modelAndView;
     }
@@ -59,7 +59,7 @@ public class CategoryController {
     @PostMapping("/create-category")
     public ModelAndView createCategory(@ModelAttribute("category") Category category) {
         categoryService.save(category);
-        ModelAndView modelAndView = new ModelAndView("/category/create");
+        ModelAndView modelAndView = new ModelAndView("/admin/category/create");
         modelAndView.addObject("category", new Category());
         modelAndView.addObject("message", "Create category successful");
         return modelAndView;
@@ -71,7 +71,7 @@ public class CategoryController {
         ModelAndView modelAndView;
 
         if(category != null) {
-            modelAndView  = new ModelAndView("/category/update");
+            modelAndView  = new ModelAndView("/admin/category/update");
             modelAndView.addObject("category", category);
         } else {
             modelAndView = new ModelAndView("/404");
@@ -83,7 +83,7 @@ public class CategoryController {
     @PostMapping("/update-category")
     public ModelAndView updateCategory(@ModelAttribute("category") Category category) {
         categoryService.save(category);
-        ModelAndView modelAndView = new ModelAndView("/category/update");
+        ModelAndView modelAndView = new ModelAndView("/admin/category/update");
         modelAndView.addObject("message", "Update category successfull");
         return modelAndView;
     }
@@ -94,7 +94,7 @@ public class CategoryController {
         ModelAndView modelAndView;
 
         if(category != null) {
-            modelAndView  = new ModelAndView("/category/delete");
+            modelAndView  = new ModelAndView("/admin/category/delete");
             modelAndView.addObject("category", category);
         } else {
             modelAndView = new ModelAndView("/404");
@@ -108,7 +108,7 @@ public class CategoryController {
         Category category = categoryService.findById(id);
         if(category != null) {
             categoryService.remove(id);
-            return "redirect:/categories";
+            return "redirect:/admin/categories";
         } else {
             return  "redirect:/404";
         }

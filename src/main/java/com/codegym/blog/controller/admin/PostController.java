@@ -1,4 +1,4 @@
-package com.codegym.blog.controller;
+package com.codegym.blog.controller.admin;
 
 import com.codegym.blog.model.Category;
 import com.codegym.blog.model.Post;
@@ -37,7 +37,7 @@ public class PostController {
         Iterable<Post> posts = postService.findAll(pageable);
         ModelAndView modelAndview;
         if(posts != null) {
-            modelAndview = new ModelAndView("/post/list");
+            modelAndview = new ModelAndView("/admin/post/list");
             modelAndview.addObject("posts", posts);
         } else {
             modelAndview = new ModelAndView("/404");
@@ -51,7 +51,7 @@ public class PostController {
         Post post = postService.findById(id);
         ModelAndView modelAndView;
         if(post != null) {
-            modelAndView = new ModelAndView("/post/view");
+            modelAndView = new ModelAndView("/admin/post/view");
             modelAndView.addObject("post", post);
         } else {
             modelAndView = new ModelAndView("/404");
@@ -61,7 +61,7 @@ public class PostController {
 
     @GetMapping("/create-post")
     public ModelAndView showFormCreatePost() {
-        ModelAndView modelAndView = new ModelAndView("/post/create");
+        ModelAndView modelAndView = new ModelAndView("/admin/post/create");
         modelAndView.addObject("postForm", new PostForm());
         return modelAndView;
     }
@@ -81,7 +81,7 @@ public class PostController {
         Post post = new Post(postForm.getTitle(), postForm.getDescription(), postForm.getContent(), randomFileName, now, postForm.getCategory());
 
         postService.save(post);
-        ModelAndView modelAndView = new ModelAndView("/post/create");
+        ModelAndView modelAndView = new ModelAndView("/admin/post/create");
         modelAndView.addObject("message", "Create post successful");
         modelAndView.addObject("postForm", new PostForm());
         return modelAndView;
@@ -101,7 +101,7 @@ public class PostController {
 
         ModelAndView modelAndView;
         if(post != null) {
-            modelAndView = new ModelAndView("/post/update");
+            modelAndView = new ModelAndView("/admin/post/update");
             modelAndView.addObject("postForm", postForm);
         } else {
             modelAndView = new ModelAndView("/404");
@@ -138,7 +138,7 @@ public class PostController {
         post.setCreatedDate(new Date());
 
         postService.save(post);
-        ModelAndView modelAndView = new ModelAndView("/post/update");
+        ModelAndView modelAndView = new ModelAndView("/admin/post/update");
         modelAndView.addObject("postForm", postForm);
         modelAndView.addObject("message", "Update post successful");
         return modelAndView;
@@ -149,7 +149,7 @@ public class PostController {
         Post post = postService.findById(id);
         ModelAndView modelAndView;
         if(post != null) {
-            modelAndView = new ModelAndView("/post/delete");
+            modelAndView = new ModelAndView("/admin/post/delete");
             modelAndView.addObject("post", post);
         } else {
             modelAndView = new ModelAndView("/404");
