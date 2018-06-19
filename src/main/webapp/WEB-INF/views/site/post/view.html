@@ -17,8 +17,6 @@
                 <span class="date" th:text="${post.createdDate}"></span>
                 <h1 th:text="${post.title}"></h1>
             </header>
-
-            <img th:src="${'/images/' + post.imageUrl}" style="max-width: 100%">
             <div th:text="${post.content}"></div>
 
 </section>
