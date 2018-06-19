@@ -26,7 +26,6 @@
         <th>Image</th>
         <th>Created date</th>
         <th>Category</th>
-        <th>View</th>
         <th>Edit</th>
         <th>Delete</th>
         </thead>
@@ -34,14 +33,16 @@
         <th:block th:each="post : ${posts}">
             <tr>
                 <td th:text="${post.id}"></td>
-                <td th:text="${post.title}"></td>
+                <td>
+                     <a th:href="@{/posts/__${post.id}__}" th:text="${post.title}" target="_blank">
+                    </a>
+                </td>
                 <td th:text="${post.description}"></td>
                 <td>
                     <img th:src="@{/images/__${post.imageUrl}__}" class="thumbnail-sm">
                 </td>
                 <td th:text="${post.createdDate}"></td>
                 <td th:text="${post.category.name}"></td>
-                <td><a th:href="@{/admin/posts/__${post.id}__}">View</a></td>
                 <td><a th:href="@{/admin/posts/__${post.id}__/update}">Edit</a></td>
                 <td><a th:href="@{/admin/posts/__${post.id}__/delete}" class="text-danger">Delete</a></td>
             </tr>

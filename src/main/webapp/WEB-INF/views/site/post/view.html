@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/site/layout.html}">
+<head>
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.title}"></title>
+</head>
+<body>
+
+    <section layout:fragment="content">
+        <section class="post">
+
+            <header class="major">
+                <span class="date" th:text="${post.createdDate}"></span>
+                <h1 th:text="${post.title}"></h1>
+            </header>
+
+            <img th:src="${'/images/' + post.imageUrl}" style="max-width: 100%">
+            <div th:text="${post.content}"></div>
+
+</section>
+</section>
+
+</body>
+</html>

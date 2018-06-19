@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/site/layout.html}">
+<head>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Home - Nguyen Xuan Hoa Blog</title>
+    </head>
+<body>
+
+<section layout:fragment="navigation">
+    <ul class="links">
+        <li class="active"><a href="/">Home xxx</a></li>
+        <li><a href="generic.html">Generic Page</a></li>
+        <li><a href="elements.html">Elements Reference</a></li>
+    </ul>
+</section>
+
+<section layout:fragment="content">
+
+    <!-- Posts -->
+    <section class="posts">
+        <th:block th:each="post : ${posts}">
+            <article>
+                <header>
+                    <span class="date" th:text="${post.createdDate}"></span>
+                    <h2><a th:href="@{/posts/__${post.id}__}" th:text="${post.title}"></a></h2>
+                </header>
+                <a th:href="@{/posts/__${post.id}__}" class="image fit"><img th:src="@{/images/__${post.imageUrl}__}"/></a>
+                <p th:text="${post.description}"></p>
+                <ul class="actions">
+                    <li><a th:href="@{/posts/__${post.id}__}" class="button">Full Story</a></li>
+                </ul>
+            </article>
+        </th:block>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="pagination">
+            <!--<a href="#" class="previous">Prev</a>-->
+            <a href="#" class="page active">1</a>
+            <a href="#" class="page">2</a>
+            <a href="#" class="page">3</a>
+            <span class="extra">&hellip;</span>
+            <a href="#" class="page">8</a>
+            <a href="#" class="page">9</a>
+            <a href="#" class="page">10</a>
+            <a href="#" class="next">Next</a>
+        </div>
+    </footer>
+
+</section>
+
+</body>
+</html>
