@@ -41,12 +41,10 @@
     <!-- Footer -->
     <footer>
         <div class="pagination">
-            <a th:href="@{'/posts'(page=${posts.number - 1})}" th:if="${posts.hasPrevious()}" class="previous">Previous</a>
-            <span th:text="${posts. + 1}" class="extra"></span>
-            <a th:href="@{'/posts'(page=${posts.number + 1})}" th:if="${posts.hasNext()}" class="next">Next</a>
+            <a th:href="@{''(page=${posts.number - 1})}" th:if="${posts.hasPrevious()}" class="previous">Previous</a>
+            <a th:href="@{''(page=${posts.number + 1})}" th:if="${posts.hasNext()}" class="next">Next</a>
         </div>
     </footer>
-
 </section>
 
 </body>
