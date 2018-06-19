@@ -21,14 +21,7 @@
 <!-- Wrapper -->
 <div id="wrapper" class="fade-in">
 
-    <!-- Intro -->
-    <div id="intro">
-        <h1>Nguyễn Xuân Hoà Blog</h1>
-        <p>Nơi chia sẽ những ghi chép của bản thân, kiến thức về lập trình, chuyện đời, chuyện nghề và tất tần tật</p>
-        <ul class="actions">
-            <li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
-        </ul>
-    </div>
+    <div layout:fragment="intro"></div>
 
     <!-- Header -->
     <header id="header">
@@ -37,7 +30,12 @@
 
     <!-- Nav -->
     <nav id="nav">
-        <section layout:fragment="navigation"></section>
+        <ul class="links">
+            <li><a href="/">Home</a></li>
+            <li th:each="category : ${categories}">
+                <a th:href="@{/categories/__${category.id}__}" th:text="${category.name}"></a>
+            </li>
+        </ul>
         <ul class="icons">
             <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
             <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
