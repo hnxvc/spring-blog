@@ -1,48 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/admin/layout.html}">
 <head>
     <meta charset="UTF-8">
     <title>Update post</title>
 </head>
 <body>
-<h2>Update post</h2>
-<a href="/admin/posts">List post</a>
-<th:block th:if="${message}">
-    <p th:text="${message}"></p>
-</th:block>
 
-<form th:object="${postForm}" th:action="@{/admin/posts/__${postForm.id}__/update}" th:method="post" enctype="multipart/form-data">
-    <input th:hidden="true" th:field="*{id}">
-    <p>
-        <label>Title</label>
-        <input th:field="*{title}">
-    </p>
-    <p>
-        <label>Description</label>
-        <textarea th:field="*{description}"/>
-    </p>
-    <p>
-        <label>Content</label>
-        <textarea th:field="*{content}"></textarea>
-    </p>
-    <p>
-        <label>Image url</label>
-        <input type="hidden" th:field="*{imageUrl}"/>
-        <img th:src="@{/images/__${postForm.imageUrl}__}" width="200" alt=""/>
-        <input type="file" th:field="*{image}"/>
-    </p>
-    <p>
 
-        <label>Select category</label>
-        <select th:field="*{category}">
-            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
-                    th:selected="${c.id==postForm.category.id}"></option>
-        </select>
+<section layout:fragment="content">
+    <div class="main-content-header row">
+        <div class="col-md-6">
+            <h4 class="main-title">Update post</h4>
+        </div>
+    </div>
 
-    </p>
-    <p>
-        <input type="submit" value="Update post">
-    </p>
-</form>
+    <th:block th:if="${message}">
+        <div th:text="${message}" class="alert alert-success" role="alert">
+        </div>
+    </th:block>
+
+    <form th:object="${postForm}" th:action="@{/admin/posts/__${postForm.id}__/update}" th:method="post" enctype="multipart/form-data">
+        <input th:hidden="true" th:field="*{id}">
+        <div class="form-group row">
+            <label class="col-md-2">Title</label>
+            <div class="col-md-10">
+                <input th:field="*{title}" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label  class="col-md-2">Description</label>
+            <div class="col-md-10">
+                <textarea th:field="*{description}"  class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2">Content</label>
+            <div class="col-md-10">
+                <textarea class="form-control" th:field="*{content}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2">Image</label>
+            <div class="col-md-10">
+                <input type="hidden" th:field="*{imageUrl}"/>
+                <img th:src="@{/images/__${postForm.imageUrl}__}" width="200" alt=""/>
+                <input type="file" th:field="*{image}" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2">Select category</label>
+            <div class="col-md-10">
+                <select th:field="*{category}" class="form-control">
+                    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                            th:selected="${c.id==postForm.category.id}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <input type="submit" class="btn btn-primary" value="Update post">
+            </div>
+        </div>
+    </form>
+</section>
+
 </body>
 </html>
