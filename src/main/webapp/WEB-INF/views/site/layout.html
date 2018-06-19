@@ -27,12 +27,16 @@
     <header id="header">
         <a href="/" class="logo">Nguyen Xuan Hoa</a>
     </header>
-
+    <h2 th:text="${#httpServletRequest.getRequestURI()}"></h2>
     <!-- Nav -->
     <nav id="nav">
         <ul class="links">
-            <li><a href="/">Home</a></li>
-            <li th:each="category : ${categories}">
+            <li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}">
+                <a href="/">Home</a>
+            </li>
+            <li th:each="category : ${categories}"
+                th:classappend="${#httpServletRequest.getRequestURI() == '/categories/' + category.id ? 'active':''}"
+            >
                 <a th:href="@{/categories/__${category.id}__}" th:text="${category.name}"></a>
             </li>
         </ul>
