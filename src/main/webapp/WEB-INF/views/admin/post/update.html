@@ -36,12 +36,6 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-2">Content</label>
-            <div class="col-md-10">
-                <textarea class="form-control" th:field="*{content}"/>
-            </div>
-        </div>
-        <div class="form-group row">
             <label class="col-md-2">Image</label>
             <div class="col-md-10">
                 <input type="hidden" th:field="*{imageUrl}"/>
@@ -58,11 +52,12 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col-md-2"></div>
-            <div class="col-md-10">
-                <input type="submit" class="btn btn-primary" value="Update post">
-            </div>
+        <div>
+            <label>Content</label>
+            <textarea class="js-summernote-content" th:field="*{content}"/>
+        </div>
+        <div class="form-footer">
+            <input type="submit" class="btn btn-primary" value="Create post">
         </div>
     </form>
 </section>
