@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Blog</title>
     <link href="/assets/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/summernote/summernote-bs4.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/admin.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -43,8 +44,21 @@
         <p class="footer-copy">NguyenXuanHoa@2018. All rights reserved.</p>
     </footer>
 
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap/popper.min.js"></script>
+    <script src="/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="/assets/summernote/summernote-bs4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-summernote-des').summernote({
+                height: 100
+            });
+            $('.js-summernote-content').summernote({
+                height: 300
+            });
+        });
+    </script>
     <section layout:fragment="script">
     </section>
-
 </body>
 </html>

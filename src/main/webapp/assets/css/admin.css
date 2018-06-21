@@ -16,3 +16,7 @@
 .thumbnail-sm {
   max-width: 100px;
 }
+
+.form-footer {
+  padding-top: 15px;
+}

@@ -27,7 +27,9 @@
         <tbody>
         <th:block th:each="post : ${posts}">
             <tr>
-                <td th:text="${post.title}"></td>
+                <td>
+                    <a th:href="@{/posts/__${post.id}__}" th:text="${post.title}" target="_blank"></a>
+                </td>
                 <td th:text="${post.description}"></td>
             </tr>
         </th:block>
