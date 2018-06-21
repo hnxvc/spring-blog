@@ -6,9 +6,11 @@ import com.codegym.blog.model.PostForm;
 import com.codegym.blog.service.CategoryService;
 import com.codegym.blog.service.PostService;
 import com.codegym.blog.utils.StorageUtils;
+import com.codegym.blog.validation.PostValidatior;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,21 +54,37 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public ModelAndView createPost(@ModelAttribute("postForm") PostForm postForm) {
+    // FIXME: Add @Valid
+    public ModelAndView createPost(@ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView("/admin/post/create");
+        new PostValidatior().validate(postForm, bindingResult);
 
+        if(bindingResult.hasFieldErrors()) {
+            return modelAndView;
+        }
+
+        String randomFileName = "";
         String originalFileName = postForm.getImage().getOriginalFilename();
-        String randomFileName =  StorageUtils.generateRandomFileName(originalFileName);
-        try {
-            postForm.getImage().transferTo(new File(StorageUtils.IMAGE_LOCATION + randomFileName));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(!originalFileName.isEmpty()) {
+            randomFileName =  StorageUtils.generateRandomFileName(originalFileName);
+            try {
+                postForm.getImage().transferTo(new File(StorageUtils.IMAGE_LOCATION + randomFileName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         Date now = new Date();
-        Post post = new Post(postForm.getTitle(), postForm.getDescription(), postForm.getContent(), randomFileName, now, postForm.getCategory());
+        Post post = new Post(
+                postForm.getTitle(),
+                postForm.getDescription(),
+                postForm.getContent(),
+                randomFileName,
+                now,
+                postForm.getCategory()
+        );
 
         postService.save(post);
-        ModelAndView modelAndView = new ModelAndView("/admin/post/create");
         modelAndView.addObject("message", "Create post successful");
         modelAndView.addObject("postForm", new PostForm());
         return modelAndView;
