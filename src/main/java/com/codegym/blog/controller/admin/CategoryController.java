@@ -3,9 +3,11 @@ package com.codegym.blog.controller.admin;
 import com.codegym.blog.model.Category;
 import com.codegym.blog.model.Post;
 import com.codegym.blog.service.CategoryService;
+import com.codegym.blog.validation.CategoryValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -55,11 +57,18 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public ModelAndView createCategory(@ModelAttribute("category") Category category) {
-        categoryService.save(category);
+    // FIXME: Add @Valid
+    public ModelAndView createCategory(@ModelAttribute("category") Category category, BindingResult bindingResult) {
+
         ModelAndView modelAndView = new ModelAndView("/admin/category/create");
-        modelAndView.addObject("category", new Category());
-        modelAndView.addObject("message", "Create category successful");
+        new CategoryValidator().validate(category, bindingResult);
+
+        if(!bindingResult.hasFieldErrors()) {
+            categoryService.save(category);
+            modelAndView.addObject("category", new Category());
+            modelAndView.addObject("message", "Create category successful");
+        }
+
         return modelAndView;
     }
 
@@ -77,10 +86,16 @@ public class CategoryController {
     }
 
     @PostMapping("/{id}/update")
-    public ModelAndView updateCategory(@ModelAttribute("category") Category category) {
-        categoryService.save(category);
+    // FIXME: Add @Valid
+    public ModelAndView updateCategory(@ModelAttribute("category") Category category, BindingResult bindingResult) {
+
         ModelAndView modelAndView = new ModelAndView("/admin/category/update");
-        modelAndView.addObject("message", "Update category successfull");
+        new CategoryValidator().validate(category, bindingResult);
+
+        if(!bindingResult.hasFieldErrors()) {
+            categoryService.save(category);
+            modelAndView.addObject("message", "Update category successfull");
+        }
         return modelAndView;
     }
 

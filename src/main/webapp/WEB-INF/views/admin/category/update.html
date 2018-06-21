@@ -22,6 +22,9 @@
     </th:block>
 
     <form th:object="${category}" th:action="@{/admin/categories/__${category.id}__/update}" th:method="post">
+        <div  th:if="${#fields.hasErrors()}" class="alert alert-danger" role="alert">
+            <div th:each="error : ${#fields.errors()}" th:text="${error}"></div>
+        </div>
         <input th:hidden="true" th:field="*{id}">
         <div class="form-group row">
             <label for="name" class="col-md-2">Category name</label>
