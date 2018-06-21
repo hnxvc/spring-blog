@@ -61,7 +61,7 @@ public class CategoryController {
     public ModelAndView createCategory(@ModelAttribute("category") Category category, BindingResult bindingResult) {
 
         ModelAndView modelAndView = new ModelAndView("/admin/category/create");
-        new CategoryValidator().validate(category, bindingResult);
+        new CategoryValidator(categoryService).validate(category, bindingResult);
 
         if(!bindingResult.hasFieldErrors()) {
             categoryService.save(category);
@@ -90,7 +90,7 @@ public class CategoryController {
     public ModelAndView updateCategory(@ModelAttribute("category") Category category, BindingResult bindingResult) {
 
         ModelAndView modelAndView = new ModelAndView("/admin/category/update");
-        new CategoryValidator().validate(category, bindingResult);
+        new CategoryValidator(categoryService).validate(category, bindingResult);
 
         if(!bindingResult.hasFieldErrors()) {
             categoryService.save(category);
