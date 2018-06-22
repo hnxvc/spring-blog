@@ -30,9 +30,9 @@
         <th>Delete</th>
         </thead>
         <tbody>
-        <th:block th:each="post : ${posts}">
+        <th:block th:each="post, inter : ${posts}">
             <tr>
-                <td th:text="${post.id}"></td>
+                <td th:text="${inter.count}"></td>
                 <td>
                      <a th:href="@{/posts/__${post.id}__}" th:text="${post.title}" target="_blank">
                     </a>

@@ -30,9 +30,9 @@
         </tr>
         </thead>
         <tbody>
-        <th:block th:each="category : ${categories}">
+        <th:block th:each="category, inter : ${categories}">
             <tr>
-                <td th:text="${category.id}"></td>
+                <td th:text="${inter.count}"></td>
                 <td th:text="${category.name}"></td>
                 <td><a th:href="@{/admin/categories/__${category.id}__}">View</a></td>
                 <td><a th:href="@{/admin/categories/__${category.id}__/update}">Edit</a></td>
