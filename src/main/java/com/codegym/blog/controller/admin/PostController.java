@@ -122,20 +122,17 @@ public class PostController {
         }
 
         Post post = postService.findById(id);
-        if(postForm.getImage() != null) {
 
-            StorageUtils.removeImage(post.getImageUrl());
-            String originalFileName = postForm.getImage().getOriginalFilename();
-
-            if(!originalFileName.isEmpty()) {
-                try {
-                    String randomFileName =  StorageUtils.generateRandomFileName(originalFileName);
-                    postForm.getImage().transferTo(new File(StorageUtils.IMAGE_LOCATION + randomFileName));
-                    post.setImageUrl(randomFileName);
-                    postForm.setImageUrl(randomFileName);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        String originalFileName = postForm.getImage().getOriginalFilename();
+        if(!originalFileName.isEmpty()) {
+            try {
+                StorageUtils.removeImage(post.getImageUrl());
+                String randomFileName =  StorageUtils.generateRandomFileName(originalFileName);
+                postForm.getImage().transferTo(new File(StorageUtils.IMAGE_LOCATION + randomFileName));
+                post.setImageUrl(randomFileName);
+                postForm.setImageUrl(randomFileName);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 
