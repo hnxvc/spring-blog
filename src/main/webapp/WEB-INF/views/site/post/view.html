@@ -14,7 +14,7 @@
         <section class="post">
 
             <header class="major">
-                <span class="date" th:text="${post.createdDate}"></span>
+                <span class="date" th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}"></span>
                 <h1 th:text="${post.title}"></h1>
             </header>
             <div th:text="${post.content}"></div>

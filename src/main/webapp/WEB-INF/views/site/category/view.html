@@ -18,7 +18,7 @@
         <th:block th:each="post : ${posts}">
             <article>
                 <header>
-                    <span class="date" th:text="${post.createdDate}"></span>
+                    <span class="date" th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}"></span>
                     <h2><a th:href="@{/posts/__${post.id}__}" th:text="${post.title}"></a></h2>
                 </header>
                 <a th:href="@{/posts/__${post.id}__}" class="image fit"><img th:src="@{/images/__${post.imageUrl}__}"/></a>
