@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("/admin/categories")
@@ -57,8 +59,7 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    // FIXME: Add @Valid
-    public ModelAndView createCategory(@ModelAttribute("category") Category category, BindingResult bindingResult) {
+    public ModelAndView createCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult) {
 
         ModelAndView modelAndView = new ModelAndView("/admin/category/create");
         new CategoryValidator(categoryService).validate(category, bindingResult);
@@ -86,8 +87,7 @@ public class CategoryController {
     }
 
     @PostMapping("/{id}/update")
-    // FIXME: Add @Valid
-    public ModelAndView updateCategory(@ModelAttribute("category") Category category, BindingResult bindingResult) {
+    public ModelAndView updateCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult) {
 
         ModelAndView modelAndView = new ModelAndView("/admin/category/update");
         new CategoryValidator(categoryService).validate(category, bindingResult);

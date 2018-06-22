@@ -26,13 +26,12 @@ public class CategoryValidator implements Validator {
 
         String name = category.getName();
         if(name.trim().length() == 0) {
-            errors.rejectValue("name", "name.empty");
+            errors.rejectValue("name", "category.empty");
         }
 
         boolean isExistsCategory = categoryService.findByName(name) != null;
         if(isExistsCategory) {
-            errors.rejectValue("name", "name.exists");
+            errors.rejectValue("name", "category.exists");
         }
-
     }
 }
