@@ -113,24 +113,29 @@ public class PostController {
     }
 
     @PostMapping("/{id}/update")
-    public ModelAndView updatePost(@PathVariable("id") Long id ,@ModelAttribute("postForm") PostForm postForm) {
+    public ModelAndView updatePost(@Valid @PathVariable("id") Long id, @ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult) {
+
+        ModelAndView modelAndView = new ModelAndView("/admin/post/update");
+        new PostValidatior().validate(postForm, bindingResult);
+        if(bindingResult.hasFieldErrors()) {
+            return modelAndView;
+        }
 
         Post post = postService.findById(id);
-
         if(postForm.getImage() != null) {
 
             StorageUtils.removeImage(post.getImageUrl());
-
             String originalFileName = postForm.getImage().getOriginalFilename();
-            String randomFileName =  StorageUtils.generateRandomFileName(originalFileName);
 
-            post.setImageUrl(randomFileName);
-            postForm.setImageUrl(randomFileName);
-
-            try {
-                postForm.getImage().transferTo(new File(StorageUtils.IMAGE_LOCATION + randomFileName));
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(!originalFileName.isEmpty()) {
+                try {
+                    String randomFileName =  StorageUtils.generateRandomFileName(originalFileName);
+                    postForm.getImage().transferTo(new File(StorageUtils.IMAGE_LOCATION + randomFileName));
+                    post.setImageUrl(randomFileName);
+                    postForm.setImageUrl(randomFileName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -139,9 +144,8 @@ public class PostController {
         post.setContent(postForm.getContent());
         post.setCategory(postForm.getCategory());
         post.setCreatedDate(new Date());
-
         postService.save(post);
-        ModelAndView modelAndView = new ModelAndView("/admin/post/update");
+
         modelAndView.addObject("postForm", postForm);
         modelAndView.addObject("message", "Update post successful");
         return modelAndView;

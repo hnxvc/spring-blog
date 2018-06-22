@@ -22,6 +22,9 @@
     </th:block>
 
     <form th:object="${postForm}" th:action="@{/admin/posts/__${postForm.id}__/update}" th:method="post" enctype="multipart/form-data">
+        <div  th:if="${#fields.hasErrors()}" class="alert alert-danger" role="alert">
+            <div th:each="error : ${#fields.errors()}" th:text="${error}"></div>
+        </div>
         <input th:hidden="true" th:field="*{id}">
         <div class="form-group row">
             <label class="col-md-2">Title</label>
