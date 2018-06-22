@@ -24,7 +24,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Image</th>
-        <th>Created date</th>
+        <th>Date</th>
         <th>Category</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -41,7 +41,7 @@
                 <td>
                     <img th:src="@{/images/__${post.imageUrl}__}" class="thumbnail-sm">
                 </td>
-                <td th:text="${post.createdDate}"></td>
+                <td th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}"></td>
                 <td th:text="${post.category.name}"></td>
                 <td><a th:href="@{/admin/posts/__${post.id}__/update}">Edit</a></td>
                 <td><a th:href="@{/admin/posts/__${post.id}__/delete}" class="text-danger">Delete</a></td>
