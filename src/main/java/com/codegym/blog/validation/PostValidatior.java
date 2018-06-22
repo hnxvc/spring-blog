@@ -17,11 +17,11 @@ public class PostValidatior implements Validator {
         String content = postForm.getContent();
 
         if(title.trim().length() == 0) {
-            errors.rejectValue("title", "title.empty");
+            errors.rejectValue("title", "post.title.empty");
         }
 
         if(content.trim().length() == 0) {
-            errors.rejectValue("content", "content.empty");
+            errors.rejectValue("content", "post.content.empty");
         }
     }
 }
