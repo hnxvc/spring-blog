@@ -8,13 +8,17 @@
 </head>
 <body class="authentication">
     <div class="authentication-form">
-        <div class="alert alert-danger" role="alert">
-            Email or password invalid!
-        </div>
+
+        <th:block th:if="${param.error}">
+            <div class="alert alert-danger" role="alert">
+                Email or password invalid!
+            </div>
+        </th:block>
+
         <form th:method="post" th:action="@{/login}">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="Enter email">
+                <label for="email">Userame</label>
+                <input type="text" class="form-control" id="email" name="username" placeholder="Enter username">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
@@ -22,9 +26,6 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Login" class="btn btn-primary btn-block">
-            </div>
-            <div class="form-group form-footer">
-                Your don't have account, <strong><a href="/register">Register</a></strong>
             </div>
         </form>
     </div>
