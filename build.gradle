@@ -45,5 +45,9 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.197'
 
+    compile group: 'org.springframework.security', name: 'spring-security-core', version: '4.2.7.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.2.7.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.2.7.RELEASE'
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
 }
 
