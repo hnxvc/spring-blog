@@ -1,6 +1,9 @@
 package com.codegym.blog;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -9,7 +12,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
+@PropertySource(value = {"classpath:application.properties"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private Environment environment;
+
+    @Autowired
+    public SecurityConfig(Environment environment) {
+        this.environment = environment;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,8 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("admin")
-                .password("password")
+                .withUser(environment.getProperty("admin.user"))
+                .password(environment.getProperty("admin.password"))
                 .roles("ADMIN");
     }
 
