@@ -50,7 +50,10 @@
             <label class="col-md-2">Select category</label>
             <div class="col-md-10">
                 <select th:field="*{category}" class="form-control">
-                    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}">
+                    <option th:each="c : ${categories}"
+                            th:value="${c.id}" th:text="${c.name}"
+                            th:selected="${c.id == postForm.category.id}"
+                    >
                     </option>
                 </select>
             </div>
