@@ -1,2 +1,7 @@
+db.user = your_db_user
+db.password = your_db_password
+
+max_upload_file_size = 10000000
+
 admin.user = your_user_name
 admin.password = your_password
