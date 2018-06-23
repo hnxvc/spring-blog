@@ -16,4 +16,17 @@ public class GeneralController {
         ModelAndView modelAndView = new ModelAndView("/404");
         return modelAndView;
     }
+
+    @GetMapping("/login")
+    public ModelAndView showLoginForm() {
+        ModelAndView modelAndView = new ModelAndView("/login");
+        return modelAndView;
+    }
+
+    @GetMapping("/register")
+    public ModelAndView showRegisterForm() {
+        ModelAndView modelAndView = new ModelAndView("/register");
+        return modelAndView;
+    }
+
 }

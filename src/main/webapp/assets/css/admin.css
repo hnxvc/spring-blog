@@ -20,3 +20,16 @@
 .form-footer {
   padding-top: 15px;
 }
+
+/* Authentication */
+body.authentication {
+  background-color: #1e252d;
+}
+
+.authentication-form {
+  color: #fff;
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 200px;
+  margin-bottom: 40px;
+}

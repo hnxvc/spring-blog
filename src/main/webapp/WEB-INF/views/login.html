@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/assets/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/admin.css" rel="stylesheet" type="text/css" />
+    <title>Login</title>
+</head>
+<body class="authentication">
+    <div class="authentication-form">
+        <div class="alert alert-danger" role="alert">
+            Email or password invalid!
+        </div>
+        <form th:method="post" th:action="@{/login}">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary btn-block">
+            </div>
+            <div class="form-group form-footer">
+                Your don't have account, <strong><a href="/register">Register</a></strong>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
