@@ -9,6 +9,7 @@ import com.codegym.blog.service.impl.PostServiceImpl;
 import com.codegym.blog.utils.StorageUtils;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
@@ -56,6 +58,14 @@ import java.util.Properties;
 @EnableSpringDataWebSupport
 @EnableWebSecurity
 public class ApplicationConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+
+    private Environment environment;
+
+    @Autowired
+    public ApplicationConfig(Environment environment) {
+        this.environment = environment;
+    }
+
     private ApplicationContext applicationContext;
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -130,8 +140,8 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/spring_blog?useUnicode=true&characterEncoding=utf8");
-        dataSource.setUsername( "root" );
-        dataSource.setPassword( "root" );
+        dataSource.setUsername(environment.getProperty("db.user"));
+        dataSource.setPassword(environment.getProperty("db.password"));
         return dataSource;
     }
 
@@ -152,7 +162,8 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     @Bean
     public CommonsMultipartResolver multipartResolver(){
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSizePerFile(10000000);
+        int max_upload_file_size = Integer.parseInt(environment.getProperty("max_upload_file_size"));
+        multipartResolver.setMaxUploadSizePerFile(max_upload_file_size);
         return multipartResolver;
     }
 
