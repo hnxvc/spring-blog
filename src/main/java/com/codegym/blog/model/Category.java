@@ -19,6 +19,10 @@ public class Category {
     @OneToMany
     private List<Post> posts;
 
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
     public Category() {
     }
 
