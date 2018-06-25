@@ -24,6 +24,7 @@
 * Spring MVC
 * ORM
 * Bootstrap
+* RESTful API
 
 
 ### Screenshot
