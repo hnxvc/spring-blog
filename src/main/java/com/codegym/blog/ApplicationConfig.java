@@ -174,7 +174,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
                 .addResourceLocations("/assets/");
         registry
                 .addResourceHandler("/images/**")
-                .addResourceLocations("file:" + StorageUtils.IMAGE_LOCATION);
+                .addResourceLocations("file:" + environment.getProperty("image_upload_location"));
     }
 
     @Bean

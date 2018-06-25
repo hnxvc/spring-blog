@@ -4,15 +4,14 @@ import java.io.File;
 import java.util.UUID;
 
 public class StorageUtils {
-    public static final String IMAGE_LOCATION = "/Users/hoa/Pictures/temp/";
 
     public static String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf(".");
         return fileName.substring(dotIndex);
     }
 
-    public static void removeImage(String fileName) {
-        File file = new File(IMAGE_LOCATION + fileName);
+    public static void removeImage(String filePath) {
+        File file = new File(filePath);
         if(file.exists()) {
             file.delete();
         }

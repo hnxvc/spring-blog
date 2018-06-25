@@ -8,6 +8,7 @@ import com.codegym.blog.service.PostService;
 import com.codegym.blog.utils.StorageUtils;
 import com.codegym.blog.validation.PostValidatior;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,9 @@ public class PostController {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    Environment environment;
 
     @ModelAttribute("categories")
     public Iterable<Category> categories() {
@@ -68,7 +72,7 @@ public class PostController {
         if(!originalFileName.isEmpty()) {
             randomFileName =  StorageUtils.generateRandomFileName(originalFileName);
             try {
-                postForm.getImage().transferTo(new File(StorageUtils.IMAGE_LOCATION + randomFileName));
+                postForm.getImage().transferTo(new File(environment.getProperty("image_upload_location")+ randomFileName));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -126,9 +130,9 @@ public class PostController {
         String originalFileName = postForm.getImage().getOriginalFilename();
         if(!originalFileName.isEmpty()) {
             try {
-                StorageUtils.removeImage(post.getImageUrl());
+                StorageUtils.removeImage(environment.getProperty("image_upload_location") + post.getImageUrl());
                 String randomFileName =  StorageUtils.generateRandomFileName(originalFileName);
-                postForm.getImage().transferTo(new File(StorageUtils.IMAGE_LOCATION + randomFileName));
+                postForm.getImage().transferTo(new File(environment.getProperty("image_upload_location") + randomFileName));
                 post.setImageUrl(randomFileName);
                 postForm.setImageUrl(randomFileName);
             } catch (IOException e) {
