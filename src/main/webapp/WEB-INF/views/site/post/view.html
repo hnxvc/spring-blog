@@ -17,7 +17,8 @@
                 <span class="date" th:text="${#dates.format(post.createdDate, 'dd-MMM-yyyy')}"></span>
                 <h1 th:text="${post.title}"></h1>
             </header>
-            <div th:text="${post.content}"></div>
+            <div th:utext="${post.content}"
+            ></div>
 
 </section>
 </section>
